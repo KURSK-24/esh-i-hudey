@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ешь и худей · Людмила Овчинникова</title>
+<meta name="description" content="Посчитай свой главный перерыв в еде, получи сетку времени под свой подъём и тарелку без весов">
+<meta property="og:title" content="Ешь и худей">
+<meta property="og:description" content="Посчитай свой главный перерыв в еде, получи сетку времени под свой подъём и тарелку без весов">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@600;700&family=Golos+Text:wght@400;500;700&display=swap">
+<style>
+:root{
+  --ground:#EEF0E8;
+  --surface:#FBFAF5;
+  --surface-2:#F4F5EC;
+  --ink:#22271F;
+  --muted:#5C6356;
+  --line:#D6DACB;
+  --protein:#B0553F;
+  --carb:#D4A24C;
+  --veg:#5C7A4B;
+  --fat:#EFD9A6;
+  --fat-line:#C8A85C;
+  --accent:#B0553F;
+  --accent-ink:#FFFFFF;
+  --good:#5C7A4B;
+  --warn:#C98A2E;
+  --shadow:0 1px 2px rgba(34,39,31,.06), 0 8px 24px rgba(34,39,31,.07);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#171A15;--surface:#20241D;--surface-2:#262B22;--ink:#ECEFE3;--muted:#A3AB98;--line:#333A2D;
+    --protein:#CB6C52;--carb:#E0B45F;--veg:#82A469;--fat:#EBD7A4;--fat-line:#B79A55;--accent:#DD8168;--accent-ink:#1B1E18;
+    --good:#82A469;--warn:#E0B45F;
+    --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 28px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#171A15;--surface:#20241D;--surface-2:#262B22;--ink:#ECEFE3;--muted:#A3AB98;--line:#333A2D;
+  --protein:#CB6C52;--carb:#E0B45F;--veg:#82A469;--fat:#EBD7A4;--fat-line:#B79A55;--accent:#DD8168;--accent-ink:#1B1E18;
+  --good:#82A469;--warn:#E0B45F;
+  --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 28px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:"Golos Text","Segoe UI",system-ui,-apple-system,sans-serif;
+  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:620px;margin:0 auto;padding:28px 16px 64px;display:flex;flex-direction:column;gap:20px}
+p{margin:0 0 12px}
+p:last-child{margin-bottom:0}
+
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0}
+h1{font-family:Vollkorn,Georgia,serif;font-weight:700;font-size:clamp(42px,12vw,60px);line-height:1;letter-spacing:-.01em;margin:8px 0 12px}
+.lead{font-size:18px;margin:0 0 18px;max-width:34ch}
+.steps{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;padding:0;list-style:none}
+.steps a{display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:14px;font-weight:500}
+.steps a span{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-size:12px;font-weight:700}
+.about{color:var(--muted);font-size:15px}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px 20px;box-shadow:var(--shadow);scroll-margin-top:12px}
+.step-no{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 0 4px}
+h2{font-family:Vollkorn,Georgia,serif;font-weight:700;font-size:28px;line-height:1.1;margin:0 0 10px}
+h3{font-size:17px;margin:22px 0 8px}
+.sub{color:var(--muted);font-size:15px;margin:0 0 18px}
+
+/* поля */
+label.field{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500;margin:0 0 16px}
+input[type="time"]{
+  font:inherit;font-size:17px;font-variant-numeric:tabular-nums;color:var(--ink);
+  background:var(--surface-2);border:1px solid var(--line);border-radius:10px;
+  padding:10px 12px;min-height:46px;width:100%;max-width:170px;
+}
+input[type="time"]:focus-visible,button:focus-visible,.seg input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+
+.rows{display:flex;flex-direction:column;gap:10px;margin:0 0 12px;padding:0;list-style:none}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.row input[type="time"]{max-width:128px;flex:0 0 auto}
+.seg{display:inline-flex;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px}
+.seg label{position:relative;cursor:pointer}
+.seg input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.seg span{display:block;padding:8px 12px;border-radius:8px;font-size:14px;font-weight:500;color:var(--muted);white-space:nowrap}
+.seg input:checked+span{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.seg.modes{display:grid;grid-template-columns:1fr 1fr;width:100%}
+.seg.modes span{white-space:normal;text-align:center;line-height:1.3;padding:9px 6px}
+.row .del{border:0;background:none;color:var(--muted);font-size:22px;line-height:1;width:36px;height:40px;cursor:pointer;border-radius:8px}
+.row .del:hover{color:var(--ink)}
+
+.btn{font:inherit;font-weight:700;font-size:16px;border-radius:12px;padding:13px 18px;cursor:pointer;border:1px solid transparent}
+.btn-main{background:var(--accent);color:var(--accent-ink);width:100%}
+.btn-ghost{background:none;border-color:var(--line);color:var(--ink);font-weight:500;font-size:15px;padding:9px 14px}
+.actions{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+
+.error{color:var(--protein);font-size:14.5px;margin:12px 0 0}
+
+/* результат */
+.result{margin-top:20px;border-top:1px dashed var(--line);padding-top:20px}
+.big{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:0 0 4px}
+.big b{font-family:Vollkorn,Georgia,serif;font-size:56px;line-height:1;font-variant-numeric:tabular-nums}
+.big em{font-style:normal;color:var(--muted);font-size:15px}
+.band{border-radius:12px;padding:16px;margin:16px 0 0;background:var(--surface-2);border-left:4px solid var(--accent)}
+.band.a{border-left-color:var(--good)}
+.band.b{border-left-color:var(--warn)}
+.band h3{margin:0 0 6px}
+.extra{margin:14px 0 0;font-size:15px}
+.doctor{margin:16px 0 0;font-size:13.5px;color:var(--muted)}
+.timeline-day{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0;padding:0;list-style:none}
+.timeline-day li{font-size:13px;font-variant-numeric:tabular-nums;padding:4px 9px;border-radius:999px;border:1px solid var(--line);background:var(--surface)}
+.timeline-day li.meal{border-color:var(--accent);font-weight:700}
+.timeline-day li.gap{border-style:dashed;color:var(--protein);font-weight:700;background:none}
+
+/* сетка */
+.plan{list-style:none;margin:18px 0 0;padding:0;position:relative}
+.plan li{display:grid;grid-template-columns:62px 18px 1fr;gap:10px;align-items:start;padding:0 0 16px;position:relative}
+.plan li::before{content:"";position:absolute;left:79px;top:16px;bottom:-2px;width:2px;background:var(--line)}
+.plan li:last-child::before{display:none}
+.plan time{font-variant-numeric:tabular-nums;font-weight:700;font-size:17px;text-align:right}
+.plan .pip{width:14px;height:14px;border-radius:50%;background:var(--accent);margin-top:5px;position:relative;z-index:1;justify-self:center}
+.plan .pip.water{background:var(--surface);border:2px solid var(--veg)}
+.plan b{display:block;font-size:15.5px}
+.plan span{display:block;font-size:14px;color:var(--muted)}
+.compare{margin:6px 0 0;padding:12px 14px;border-radius:10px;background:var(--surface-2);font-size:15px}
+.note{margin:14px 0 0;font-size:14px;color:var(--muted)}
+details{margin:18px 0 0;border:1px solid var(--line);border-radius:12px;background:var(--surface-2)}
+summary{cursor:pointer;padding:14px 16px;font-weight:700;font-size:15.5px;list-style-position:inside}
+details .inner{padding:0 16px 16px;font-size:15px}
+.src{font-size:13px;color:var(--muted)}
+
+/* тарелка */
+.hands{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:end;margin:0 0 6px}
+.hand{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.hand .name{font-weight:700;font-size:14px}
+.hand .what{font-size:12.5px;color:var(--muted);line-height:1.35}
+.plate{display:flex;justify-content:center;margin:22px 0 10px}
+.plate svg{width:100%;max-width:320px;height:auto}
+.legend{display:flex;flex-direction:column;gap:10px}
+.leg{display:flex;align-items:flex-start;gap:10px;font-size:15px}
+.dot{width:14px;height:14px;border-radius:4px;flex:0 0 auto;margin-top:5px;border:1px solid rgba(0,0,0,.12)}
+.leg span{color:var(--muted)}
+.first{display:flex;gap:14px;align-items:flex-start;margin:22px 0 0;padding:16px;border-radius:12px;background:var(--surface-2)}
+.first p{font-size:15px}
+
+.meas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.m{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:12px 13px}
+.m b{display:block;font-size:15px}
+.m span{font-size:13px;color:var(--muted)}
+
+.next{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+.next h2{color:var(--ground)}
+.next .quote{font-family:Vollkorn,Georgia,serif;font-size:22px;line-height:1.25;margin:0 0 14px}
+.next ul{margin:0 0 16px;padding:0 0 0 20px}
+.next li{margin:0 0 6px}
+.next .btn-main{display:block;text-align:center;text-decoration:none;margin-top:18px}
+.next .muted{opacity:.75;font-size:14px}
+
+footer{border-top:1px solid var(--line);padding-top:16px;font-size:13px;color:var(--muted)}
+footer b{color:var(--ink)}
+
+@media (max-width:420px){
+  .hands{grid-template-columns:repeat(2,1fr);gap:16px}
+  .meas{grid-template-columns:1fr}
+  .seg span{padding:8px 10px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">Людмила Овчинникова · нутрициолог</p>
+    <h1>Ешь и худей</h1>
+    <p class="lead">Система питания, с которой можно начать завтра утром</p>
+    <ul class="steps">
+      <li><a href="#chislo"><span>1</span>Твоё число</a></li>
+      <li><a href="#setka"><span>2</span>Твоя сетка</a></li>
+      <li><a href="#tarelka"><span>3</span>Твоя тарелка</a></li>
+    </ul>
+    <p class="about">Здесь не будет подсчёта калорий, взвешивания еды и запретов на хлеб. Схему я в своё время получила от тренера с медицинским образованием и школой Вейдера. Сначала применяла её на себе, потом на людях. Уходил вес, успокаивался желудок, менялись анализы. И всё это время человек был сыт</p>
+  </header>
+
+  <!-- ШАГ 1 -->
+  <section class="card" id="chislo">
+    <p class="step-no">Шаг 1</p>
+    <h2>Твоё число</h2>
+    <p class="sub">Вспомни вчерашний день и впиши время всего, что попало в рот, кроме воды. Кофе с молоком и конфета от коллеги тоже считаются. Время можно примерно, до минуты не нужно</p>
+
+    <label class="field">Во сколько ты вчера встала
+      <input type="time" id="wake1" value="07:00">
+    </label>
+
+    <p style="font-size:14px;font-weight:500;margin:0 0 8px">Что было за день</p>
+    <ul class="rows" id="rows"></ul>
+
+    <div class="actions">
+      <button class="btn btn-ghost" type="button" id="addRow">+ Добавить строчку</button>
+      <button class="btn btn-main" type="button" id="calc">Посчитать моё число</button>
+    </div>
+    <p class="error" id="err1" hidden></p>
+
+    <div class="result" id="res1" hidden>
+      <div class="big"><b id="gapBig"></b><em id="gapWhen"></em></div>
+      <p style="color:var(--muted);font-size:14.5px;margin:0">самый большой перерыв между полноценными приёмами</p>
+      <ul class="timeline-day" id="dayLine"></ul>
+      <div class="band" id="band"><h3 id="bandTitle"></h3><p id="bandText"></p></div>
+      <p class="extra" id="snackNote" hidden></p>
+      <p class="extra" id="morningNote" hidden></p>
+      <p class="doctor">Если к вечернему голоду добавились постоянная слабость, дрожь в руках, головокружение или ты просыпаешься ночью от голода, дойди до врача. Режимом питания такое не чинится, и как нутрициолог я это не диагностирую</p>
+    </div>
+  </section>
+
+  <!-- ШАГ 2 -->
+  <section class="card" id="setka">
+    <p class="step-no">Шаг 2</p>
+    <h2>Твоя сетка времени</h2>
+    <p class="sub">Вариантов два, и оба рабочие. Выбирай под свою работу и свой характер. Калории мы не считаем, вместо счёта подбираем тарелку, поэтому на результат выбор не влияет</p>
+
+    <label class="field">Во сколько ты обычно встаёшь
+      <input type="time" id="wake2" value="07:00">
+    </label>
+
+    <div class="seg modes" role="radiogroup" aria-label="Сколько приёмов">
+      <label><input type="radio" name="mode" value="5" checked><span><b>5 приёмов</b><br>через 3 часа</span></label>
+      <label><input type="radio" name="mode" value="4"><span><b>4 приёма</b><br>через 4 часа</span></label>
+    </div>
+
+    <ol class="plan" id="plan"></ol>
+    <p class="compare" id="compare" hidden></p>
+    <p class="note">Сетка привязана к твоему подъёму, а не к часам на стене. Встала в 11, значит первый приём в 11:30, и последний может оказаться в 22 или 23. Ночные смены и поздний подъём ей не мешают. Сделай скриншот своей сетки и держи его под рукой первую неделю</p>
+
+    <details>
+      <summary>Не будет тяжело между приёмами?</summary>
+      <div class="inner">
+        <p>По моему опыту и опыту женщин, с которыми я работаю, тяжелее как раз без расписания. И у этого есть объяснение</p>
+        <p>Пока ты не ешь, в крови растёт гормон голода грелин. Перед едой его почти вдвое больше, а в первый час после еды он падает <span class="src">(Cummings и соавторы, Diabetes, 2001)</span></p>
+        <p>А вечером аппетит поднимается сам по себе. Людей в лаборатории равномерно кормили весь день, и всё равно к 20:00 голод и тяга к сладкому, солёному и мучному были выше, чем утром <span class="src">(Scheer и соавторы, Obesity, 2013)</span></p>
+        <p>Теперь сложи. Если к вечеру ты приходишь после длинной дневной паузы, два подъёма накладываются друг на друга. Ровный ритм убирает первый из них</p>
+        <p>Честно скажу и другое: точной цифры «через 4 часа начинается срыв» наука не даёт. Интервал 3 или 4 часа в моей схеме это удобный рабочий ритм, на котором люди держатся</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Говорят, частая еда держит инсулин высоким</summary>
+      <div class="inner">
+        <p>Вопрос честный, разберу спокойно</p>
+        <p>Классическое исследование Jenkins и соавторов в New England Journal of Medicine, 1989, сравнило два режима при одинаковой калорийности: 17 приёмов против 3. При частых приёмах средний инсулин оказался ниже на 27,9%, суточный C-пептид ниже на 20,2%, ЛПНП ниже на 13,5%</p>
+        <p>Работы посвежее идут в ту же сторону. В Diabetes &amp; Metabolism Journal, 2025, более высокая частота приёмов связана с лучшей чувствительностью к инсулину. В European Journal of Clinical Nutrition регулярная частота даёт лучшую чувствительность, чем хаотичная</p>
+        <p><b>Где путаница.</b> Перекусы поверх обычных приёмов действительно держат инсулин высоким. Та же самая норма еды, разложенная по часам, ведёт себя иначе. Хаос и режим это два разных сценария</p>
+        <p><b>И честная граница.</b> При одинаковом белке и одинаковых калориях сама по себе частота приёмов не ускоряет потерю жира. Дробное питание даёт сытость, спокойный вечер и работающий желудок. Работает та схема, на которой человек продержался</p>
+        <p>Если у тебя гастрит, схему стоит согласовать с гастроэнтерологом</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ШАГ 3 -->
+  <section class="card" id="tarelka">
+    <p class="step-no">Шаг 3</p>
+    <h2>Тарелка без весов</h2>
+    <p class="sub">Порция примерно 250 граммов. Взвешивать не нужно: мерка всегда с тобой и растёт вместе с человеком. У женщины ростом 155 ладонь меньше, чем у женщины ростом 175, и порция у них честно получается разной</p>
+
+    <div class="hands">
+      <div class="hand">
+        <svg width="60" height="60" viewBox="0 0 60 62" aria-hidden="true"><rect x="9" y="10" width="42" height="42" rx="13" fill="var(--protein)"/></svg>
+        <span class="name">Ладонь</span><span class="what">белок: мясо, рыба, птица, яйца, творог</span>
+      </div>
+      <div class="hand">
+        <svg width="60" height="60" viewBox="0 0 60 62" aria-hidden="true"><circle cx="30" cy="32" r="20" fill="var(--carb)"/></svg>
+        <span class="name">Кулак</span><span class="what">гарнир: крупа, картофель, макароны из твёрдых сортов</span>
+      </div>
+      <div class="hand">
+        <svg width="60" height="60" viewBox="0 0 60 62" aria-hidden="true"><path d="M8 32a22 22 0 0 1 44 0z" fill="var(--veg)"/><rect x="8" y="32" width="44" height="6" rx="3" fill="var(--veg)"/></svg>
+        <span class="name">Горсть</span><span class="what">овощи и зелень</span>
+      </div>
+      <div class="hand">
+        <svg width="60" height="60" viewBox="0 0 60 62" aria-hidden="true"><rect x="23" y="24" width="14" height="28" rx="7" fill="var(--fat)" stroke="var(--fat-line)" stroke-width="1.5"/></svg>
+        <span class="name">Большой палец</span><span class="what">жир: масло, орехи, авокадо</span>
+      </div>
+    </div>
+
+    <div class="plate">
+      <svg viewBox="0 0 300 300" role="img" aria-label="Тарелка из четырёх частей: белок с ладонь, гарнир с кулак, овощи горстью, жир с большой палец">
+        <circle cx="150" cy="150" r="142" fill="var(--surface-2)" stroke="var(--line)" stroke-width="2"/>
+        <circle cx="150" cy="150" r="124" fill="var(--surface)" stroke="var(--line)" stroke-width="1.5"/>
+        <path d="M150 40 A110 110 0 0 1 249.7 196.5 L150 150 Z" fill="var(--protein)"/>
+        <path d="M249.7 196.5 A110 110 0 0 1 65.7 220.7 L150 150 Z" fill="var(--carb)"/>
+        <path d="M65.7 220.7 A110 110 0 0 1 95.0 54.7 L150 150 Z" fill="var(--veg)"/>
+        <path d="M95.0 54.7 A110 110 0 0 1 150 40 L150 150 Z" fill="var(--fat)" stroke="var(--fat-line)" stroke-width="1"/>
+        <circle cx="150" cy="150" r="4" fill="var(--surface)"/>
+        <g font-family="Golos Text, Segoe UI, sans-serif" font-weight="700" text-anchor="middle">
+          <text x="208" y="112" font-size="15" fill="#fff">белок</text>
+          <text x="208" y="129" font-size="11" fill="#fff" opacity=".9">ладонь</text>
+          <text x="158" y="214" font-size="15" fill="#22271F">гарнир</text>
+          <text x="158" y="231" font-size="11" fill="#22271F" opacity=".8">кулак</text>
+          <text x="86" y="140" font-size="15" fill="#fff">овощи</text>
+          <text x="86" y="157" font-size="11" fill="#fff" opacity=".9">горсть</text>
+          <text x="131" y="72" font-size="10" fill="#22271F">жир</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="legend">
+      <div class="leg"><span class="dot" style="background:var(--protein)"></span><div><b>Белок с ладонь</b> <span>в каждый приём, без него тарелка не держит до следующей еды</span></div></div>
+      <div class="leg"><span class="dot" style="background:var(--carb)"></span><div><b>Гарнир с кулак</b> <span>крупа, картофель, макароны из твёрдых сортов</span></div></div>
+      <div class="leg"><span class="dot" style="background:var(--veg)"></span><div><b>Овощи горстью</b> <span>зелень идёт сюда же</span></div></div>
+      <div class="leg"><span class="dot" style="background:var(--fat);border-color:var(--fat-line)"></span><div><b>Жир с большой палец</b> <span>масло, орехи, авокадо</span></div></div>
+    </div>
+
+    <p class="note">Тарелку бери обычную, 20-22 сантиметра. На большой правильная порция выглядит сиротливо, и рука сама тянется доложить</p>
+
+    <div class="first">
+      <svg width="54" height="54" viewBox="0 0 54 54" aria-hidden="true" style="flex:0 0 auto"><path d="M6 24h42a21 21 0 0 1-21 21A21 21 0 0 1 6 24z" fill="var(--carb)"/><rect x="20" y="13" width="14" height="9" rx="2.5" fill="var(--fat)" stroke="var(--fat-line)" stroke-width="1.2"/></svg>
+      <div>
+        <p><b>Первый приём дня.</b> Медленные углеводы: каша на воде, обязательно со сливочным маслом</p>
+        <p style="color:var(--muted)">Масло тут стоит не для вкуса. Без жира завтрак отработает быстрее, чем нужно, и через полтора часа ты снова будешь думать про еду</p>
+      </div>
+    </div>
+
+    <h3>Как проверить свою тарелку без приборов</h3>
+    <p>Собери завтрашний завтрак по этой схеме и посмотри на часы через два часа. Если голод пришёл раньше твоего интервала, в тарелке не хватило белка или жира. Это самый быстрый способ проверить себя</p>
+  </section>
+
+  <!-- ЗАМЕРЫ -->
+  <section class="card">
+    <p class="step-no">И каждую неделю</p>
+    <h2>Что замерять кроме веса</h2>
+    <p class="sub">Весы плохой единственный судья: воду от жира они не отличают. Замеряй раз в неделю, в один и тот же день, утром, натощак, до еды и до воды</p>
+    <div class="meas">
+      <div class="m"><b>Вес</b><span>одни весы, одно место</span></div>
+      <div class="m"><b>Талия</b><span>по самой узкой части, живот не втянут</span></div>
+      <div class="m"><b>Бёдра</b><span>по самой широкой части</span></div>
+      <div class="m"><b>Грудь</b><span>по самой выступающей части</span></div>
+    </div>
+    <p class="note">Записывай всё в одну таблицу. Через две недели увидишь то, чего не видно на весах: цифра стоит, а талия ушла. Так бывает часто, и это хороший знак</p>
+  </section>
+
+  <!-- ДАЛЬШЕ -->
+  <section class="card next">
+    <p class="step-no" style="color:var(--fat)">Что дальше</p>
+    <h2>У тебя есть число, сетка и мерка для тарелки</h2>
+    <p>С этим уже можно начинать завтра. Но дальше почти всегда приходит один и тот же вопрос, и я слышу его каждую неделю</p>
+    <p class="quote">«Схему я поняла. А моя тарелка правильная?»</p>
+    <p>По картинке на это ответить невозможно. Нужно посмотреть на твою конкретную тарелку в твой конкретный день, с твоей работой, твоим бюджетом и семьёй, которая садится есть в 22:00</p>
+    <p>Для этого у меня есть <b>марафон «Ешь и худей»</b>: семь дней, в которые я смотрю в тарелку каждой участницы лично</p>
+    <ul>
+      <li>фотографируешь свои тарелки, я разбираю их и говорю, что поправить именно у тебя</li>
+      <li>получаешь рецепты под схему, чтобы не изобретать еду каждый вечер</li>
+      <li>идёшь в группе женщин, которые в тот же день делают то же самое</li>
+      <li>в конце недели у тебя на руках своя рабочая сетка вместо общей теории</li>
+    </ul>
+    <p>Информацию сегодня можно найти бесплатно за пятнадцать минут. Купить можно только одно: человека, который смотрит на твой случай</p>
+    <a class="btn btn-main" href="https://t.me/OLudmilA33" target="_blank" rel="noopener">Даты старта и условия в Telegram</a>
+  </section>
+
+  <footer>
+    <p><b>Людмила Овчинникова</b>, нутрициолог</p>
+    <p>Схема подбирает питание, диагнозы она не ставит. Если есть постоянная слабость, ночной голод, стойкие отёки или хронические заболевания, сначала врач, питание подключается вторым шагом</p>
+  </footer>
+
+</div>
+
+<script>
+// LOGIC-START
+function toMin(v){
+  if(!v || !/^\d{1,2}:\d{2}$/.test(v)) return null;
+  var p=v.split(':'); return (+p[0])*60+(+p[1]);
+}
+function fmtTime(min){
+  min=((min%1440)+1440)%1440;
+  var h=Math.floor(min/60), m=min%60;
+  return h+':'+(m<10?'0':'')+m;
+}
+function fmtDur(min){
+  var h=Math.floor(min/60), m=min%60;
+  if(h===0) return m+' мин';
+  return m ? h+' ч '+m+' мин' : h+' ч';
+}
+function plural(n,f){
+  var a=n%10,b=n%100;
+  if(a===1&&b!==11) return f[0];
+  if(a>=2&&a<=4&&(b<12||b>14)) return f[1];
+  return f[2];
+}
+// entries: [{t:'13:00', kind:'meal'|'snack'}], wake: 'HH:MM'
+function analyzeDay(entries, wake){
+  var w=toMin(wake); if(w===null) w=7*60;
+  var list=entries.map(function(e){var m=toMin(e.t); return m===null?null:{m:m,rel:(m-w+1440)%1440,kind:e.kind};})
+                  .filter(Boolean).sort(function(a,b){return a.rel-b.rel;});
+  var meals=list.filter(function(e){return e.kind==='meal';});
+  if(meals.length<2) return {error: list.length<2
+    ? 'Впиши хотя бы два приёма еды'
+    : 'Отметь «Еда» минимум у двух полноценных приёмов, тогда найдётся перерыв между ними'};
+  var gap=0, from=null, to=null;
+  for(var i=1;i<meals.length;i++){
+    var g=meals[i].rel-meals[i-1].rel;
+    if(g>gap){gap=g; from=meals[i-1].m; to=meals[i].m;}
+  }
+  var band = gap<=240 ? 'a' : (gap<480 ? 'b' : 'c');
+  var snacks=list.length-meals.length;
+  return {gap:gap, from:from, to:to, band:band, snacks:snacks, morning:list[0].rel, list:list};
+}
+function buildPlan(wake, n){
+  var w=toMin(wake); if(w===null) w=7*60;
+  var step = n===4 ? 240 : 180;
+  var out=[{m:w, water:true}];
+  for(var i=0;i<n;i++) out.push({m:w+30+i*step, idx:i});
+  return {items:out, step:step};
+}
+// LOGIC-END
+
+var BANDS={
+  a:{title:'До 4 часов: ритм у тебя ровный',
+     text:'Тело не успевает провалиться в голод, и это хороший результат. Если вечером не тянет добирать, а вес стоит, копать надо в другом месте: в составе тарелки и в размере порции. Начинай с шага 3, часы можно оставить в покое'},
+  b:{title:'Больше 4 часов: вот он, твой вечер',
+     text:'Это тот самый провал, после которого вечером «не могу остановиться». Днём тело недополучило, вечером оно спокойно берёт своё. Первый шаг простой: поставь один приём внутрь этой дыры и посмотри, что станет с вечером через три дня'},
+  c:{title:'8 часов и больше: тело ждёт еды весь день',
+     text:'При такой дыре разговор про силу воли теряет смысл, потому что вечером с тобой разговаривает физиология. Начинай с сетки времени, она в шаге 2'}
+};
+var NAMES=['Первый приём','Второй приём','Третий приём','Четвёртый приём','Пятый приём'];
+
+var rows=[{t:'',kind:'meal'},{t:'',kind:'snack'},{t:'',kind:'meal'},{t:'',kind:'meal'}];
+var lastGap=null, wake2Touched=false;
+var $=function(id){return document.getElementById(id);};
+
+function renderRows(){
+  $('rows').innerHTML=rows.map(function(r,i){
+    return '<li class="row">'+
+      '<input type="time" aria-label="Время, строчка '+(i+1)+'" data-i="'+i+'" value="'+r.t+'">'+
+      '<div class="seg">'+
+        '<label><input type="radio" name="k'+i+'" value="meal" data-i="'+i+'"'+(r.kind==='meal'?' checked':'')+'><span>Еда</span></label>'+
+        '<label><input type="radio" name="k'+i+'" value="snack" data-i="'+i+'"'+(r.kind==='snack'?' checked':'')+'><span>Перекус</span></label>'+
+      '</div>'+
+      (rows.length>2?'<button class="del" type="button" aria-label="Удалить строчку" data-del="'+i+'">×</button>':'')+
+    '</li>';
+  }).join('');
+}
+$('rows').addEventListener('input',function(e){
+  var i=e.target.getAttribute('data-i'); if(i===null) return;
+  if(e.target.type==='time') rows[i].t=e.target.value;
+  if(e.target.type==='radio') rows[i].kind=e.target.value;
+});
+$('rows').addEventListener('change',function(e){
+  var i=e.target.getAttribute('data-i'); if(i!==null && e.target.type==='radio') rows[i].kind=e.target.value;
+});
+$('rows').addEventListener('click',function(e){
+  var d=e.target.getAttribute('data-del'); if(d===null) return;
+  rows.splice(+d,1); renderRows();
+});
+$('addRow').addEventListener('click',function(){rows.push({t:'',kind:'meal'}); renderRows();});
+
+$('wake1').addEventListener('input',function(){ if(!wake2Touched){ $('wake2').value=this.value; renderPlan(); } });
+$('wake2').addEventListener('input',function(){ wake2Touched=true; renderPlan(); });
+
+$('calc').addEventListener('click',function(){
+  var r=analyzeDay(rows, $('wake1').value);
+  if(r.error){ $('err1').textContent=r.error; $('err1').hidden=false; $('res1').hidden=true; return; }
+  $('err1').hidden=true;
+  lastGap=r.gap;
+  $('gapBig').textContent=fmtDur(r.gap);
+  $('gapWhen').textContent='с '+fmtTime(r.from)+' до '+fmtTime(r.to);
+  var html='', meals=r.list;
+  for(var i=0;i<meals.length;i++){
+    var e=meals[i];
+    html+='<li class="'+(e.kind==='meal'?'meal':'')+'">'+fmtTime(e.m)+'</li>';
+    if(e.kind==='meal' && e.m===r.from){
+      html+='<li class="gap">'+fmtDur(r.gap)+'</li>';
+    }
+  }
+  $('dayLine').innerHTML=html;
+  var b=BANDS[r.band];
+  $('band').className='band '+r.band;
+  $('bandTitle').textContent=b.title;
+  $('bandText').textContent=b.text;
+  if(r.snacks>0){
+    $('snackNote').textContent='Кроме полноценных приёмов у тебя за день '+r.snacks+' '+plural(r.snacks,['перекус','перекуса','перекусов'])+'. Один кусочек ничего не ломает, но когда день собран из кусочков, собственный голод понять сложнее';
+    $('snackNote').hidden=false;
+  } else $('snackNote').hidden=true;
+  if(r.morning>180){
+    $('morningNote').textContent='И про утро: от подъёма до первой еды прошло '+fmtDur(r.morning)+'. Когда утро без еды длиннее трёх часов, к вечеру обычно набегает уже два провала вместо одного';
+    $('morningNote').hidden=false;
+  } else $('morningNote').hidden=true;
+  $('res1').hidden=false;
+  renderPlan();
+  $('res1').scrollIntoView({behavior:'smooth',block:'start'});
+});
+
+function renderPlan(){
+  var n=+document.querySelector('input[name="mode"]:checked').value;
+  var p=buildPlan($('wake2').value, n);
+  $('plan').innerHTML=p.items.map(function(it){
+    if(it.water) return '<li><time>'+fmtTime(it.m)+'</time><span class="pip water"></span><div><b>Подъём</b><span>стакан тёплой воды</span></div></li>';
+    var detail = it.idx===0 ? 'каша на воде со сливочным маслом' : (it.idx===n-1 ? 'последний приём, тарелка по схеме' : 'тарелка по схеме из шага 3');
+    return '<li><time>'+fmtTime(it.m)+'</time><span class="pip"></span><div><b>'+NAMES[it.idx]+'</b><span>'+detail+'</span></div></li>';
+  }).join('');
+  if(lastGap!==null){
+    $('compare').textContent='Вчера самый большой перерыв у тебя был '+fmtDur(lastGap)+'. В этой сетке он не больше '+(p.step/60)+' часов'+(lastGap>p.step?', и вечерней дыре просто неоткуда взяться':', так что по времени ты уже близко');
+    $('compare').hidden=false;
+  }
+}
+document.querySelectorAll('input[name="mode"]').forEach(function(el){el.addEventListener('change',renderPlan);});
+
+renderRows();
+renderPlan();
+</script>
+</body>
+</html>
