@@ -159,6 +159,65 @@ details .inner{padding:0 16px 16px;font-size:15px}
 .next .btn-main{display:block;text-align:center;text-decoration:none;margin-top:18px}
 .next .muted{opacity:.75;font-size:14px}
 
+/* строчка приёма */
+.rows{gap:12px}
+.row{display:block;background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:12px}
+.row-top{display:flex;align-items:center;gap:8px}
+.row-top input[type="time"]{max-width:116px;background:var(--surface)}
+.tag{font:inherit;font-size:13.5px;font-weight:700;border-radius:999px;padding:7px 11px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;white-space:nowrap}
+.tag.snack{border-color:var(--carb);color:var(--ink)}
+.tag.meal{border-color:var(--veg)}
+.row-right{display:flex;align-items:center;gap:6px}
+.row-kcal{font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.picked{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0;padding:0;list-style:none}
+.picked li{display:inline-flex;align-items:center;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 4px 4px 10px;font-size:14px}
+.picked li button{border:0;background:none;color:var(--muted);font-size:17px;line-height:1;width:26px;height:26px;border-radius:50%;cursor:pointer}
+.row-actions{display:flex;align-items:center;justify-content:space-between;margin:10px 0 0}
+.tag-hint{font-size:13.5px;color:var(--muted)}
+.add{white-space:nowrap;font:inherit;font-weight:700;font-size:14.5px;color:var(--accent);background:none;border:1px dashed var(--accent);border-radius:10px;padding:8px 12px;cursor:pointer}
+.row .del{font-size:13px;width:auto;height:auto;padding:6px 8px}
+
+.picker{margin:12px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;animation:pop .18s ease-out}
+@keyframes pop{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.cats{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cats button{font:inherit;font-size:13.5px;font-weight:500;white-space:nowrap;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:999px;padding:6px 11px;cursor:pointer}
+.cats button[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.foods{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.food{font:inherit;text-align:left;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:10px;padding:8px 9px;cursor:pointer;display:flex;flex-direction:column;gap:1px;position:relative;transition:transform .08s}
+.food:active{transform:scale(.97)}
+.food b{font-size:14px;font-weight:500;line-height:1.25}
+.food span{font-size:12px;color:var(--muted)}
+.food .cnt{font-style:normal;position:absolute;top:-6px;right:-6px;min-width:22px;height:22px;border-radius:11px;background:var(--accent);color:var(--accent-ink);font-size:12px;font-weight:700;display:grid;place-items:center;padding:0 5px}
+.done{font:inherit;font-weight:700;width:100%;margin:10px 0 0;border:0;border-radius:10px;padding:10px;background:var(--ink);color:var(--surface);cursor:pointer}
+
+/* результат дня */
+.verdict{display:flex;gap:14px;align-items:center;background:var(--surface-2);border-radius:14px;padding:16px}
+.verdict h3{margin:0 0 4px;font-size:19px}
+.verdict p{font-size:15px}
+.face{font-size:64px;line-height:1;flex:0 0 auto;animation:bounce .7s cubic-bezier(.3,1.6,.5,1)}
+@keyframes bounce{0%{transform:scale(.2) rotate(-20deg);opacity:0}100%{transform:none;opacity:1}}
+.kcal{margin:20px 0 0}
+.kcal-label{font-size:14px;color:var(--muted);margin:0 0 2px}
+.kcal-num{margin:0 0 12px;font-size:18px}
+.kcal-num b{font-family:Vollkorn,Georgia,serif;font-size:56px;line-height:1;font-variant-numeric:tabular-nums}
+.bar{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--line)}
+.bar span{display:block;height:100%;width:0;transition:width .9s ease-out}
+.bar-meal{background:var(--veg)}
+.bar-snack{background:var(--carb)}
+.bar-leg{display:flex;flex-wrap:wrap;gap:6px 16px;margin:8px 0 0;font-size:14px;color:var(--muted)}
+.bar-leg b{color:var(--ink)}
+.sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:0}
+.sw.meal{background:var(--veg)}.sw.snack{background:var(--carb)}
+.eaten{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.eaten li{display:flex;gap:10px;font-size:14px;align-items:baseline}
+.eaten time{font-weight:700;font-variant-numeric:tabular-nums;min-width:44px}
+.eaten .what{flex:1}
+.eaten .k{color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.eaten li.snack .what::after{content:" · перекус";color:var(--warn);font-weight:500}
+.gapbox{margin:22px 0 0;padding:18px 0 0;border-top:1px dashed var(--line)}
+@media (max-width:420px){ .foods{grid-template-columns:1fr 1fr} .kcal-num b{font-size:48px} }
+
 footer{border-top:1px solid var(--line);padding-top:16px;font-size:13px;color:var(--muted)}
 footer b{color:var(--ink)}
 
@@ -188,27 +247,42 @@ footer b{color:var(--ink)}
   <section class="card" id="chislo">
     <p class="step-no">Шаг 1</p>
     <h2>Твоё число</h2>
-    <p class="sub">Вспомни вчерашний день и впиши время всего, что попало в рот, кроме воды. Кофе с молоком и конфета от коллеги тоже считаются. Время можно примерно, до минуты не нужно</p>
+    <p class="sub">Вспомни вчерашний день: во сколько ела и что именно. Кофе с молоком и конфета от коллеги тоже считаются. Время можно примерно, приём это или перекус, страница поймёт сама</p>
 
     <label class="field">Во сколько ты вчера встала
       <input type="time" id="wake1" value="07:00">
     </label>
 
-    <p style="font-size:14px;font-weight:500;margin:0 0 8px">Что было за день</p>
     <ul class="rows" id="rows"></ul>
 
     <div class="actions">
-      <button class="btn btn-ghost" type="button" id="addRow">+ Добавить строчку</button>
-      <button class="btn btn-main" type="button" id="calc">Посчитать моё число</button>
+      <button class="btn btn-ghost" type="button" id="addRow">+ Ещё один раз, когда ела</button>
+      <button class="btn btn-main" type="button" id="calc">Посчитать мой день</button>
     </div>
     <p class="error" id="err1" hidden></p>
 
     <div class="result" id="res1" hidden>
-      <div class="big"><b id="gapBig"></b><em id="gapWhen"></em></div>
-      <p style="color:var(--muted);font-size:14.5px;margin:0">самый большой перерыв между полноценными приёмами</p>
-      <ul class="timeline-day" id="dayLine"></ul>
-      <div class="band" id="band"><h3 id="bandTitle"></h3><p id="bandText"></p></div>
-      <p class="extra" id="snackNote" hidden></p>
+      <div class="verdict" id="verdict">
+        <div class="face" id="vFace" aria-hidden="true"></div>
+        <div><h3 id="vTitle"></h3><p id="vText"></p></div>
+      </div>
+
+      <div class="kcal" id="kcalBlock" hidden>
+        <p class="kcal-label">За день ты съела примерно</p>
+        <p class="kcal-num"><b id="kcalNum">0</b> ккал</p>
+        <div class="bar" aria-hidden="true"><span class="bar-meal" id="barMeal"></span><span class="bar-snack" id="barSnack"></span></div>
+        <div class="bar-leg"><span><i class="sw meal"></i>в приёмах пищи <b id="kMeal"></b></span><span><i class="sw snack"></i>в перекусах <b id="kSnack"></b></span></div>
+        <p class="extra" id="kEquiv" hidden></p>
+        <ul class="eaten" id="eaten"></ul>
+        <p class="doctor">Считать калории в моей системе не нужно. Здесь цифра нужна один раз: увидеть, сколько еды прячется в кусочках за день. Значения примерные, для обычной порции</p>
+      </div>
+
+      <div class="gapbox">
+        <p class="kcal-label">Самый большой перерыв между приёмами пищи</p>
+        <div class="big"><b id="gapBig"></b><em id="gapWhen"></em></div>
+        <ul class="timeline-day" id="dayLine"></ul>
+        <div class="band" id="band"><h3 id="bandTitle"></h3><p id="bandText"></p></div>
+      </div>
       <p class="extra" id="morningNote" hidden></p>
       <p class="doctor">Если к вечернему голоду добавились постоянная слабость, дрожь в руках, головокружение или ты просыпаешься ночью от голода, дойди до врача. Режимом питания такое не чинится, и как нутрициолог я это не диагностирую</p>
     </div>
@@ -365,6 +439,72 @@ footer b{color:var(--ink)}
 
 <script>
 // LOGIC-START
+// m:1 - основная еда, из-за неё строчка считается приёмом пищи
+var CATS=[
+  {id:'drink', name:'☕ Напитки', items:[
+    {id:'coffee', n:'Кофе чёрный', p:'чашка', k:4},
+    {id:'coffee_milk', n:'Кофе с молоком', p:'250 мл', k:85},
+    {id:'tea', n:'Чай', p:'чашка', k:2},
+    {id:'sugar', n:'Сахар', p:'2 ч. л.', k:40},
+    {id:'juice', n:'Сок', p:'стакан', k:90},
+    {id:'kompot', n:'Компот', p:'стакан', k:120},
+    {id:'cola', n:'Сладкая газировка', p:'банка 330 мл', k:140},
+    {id:'kefir', n:'Кефир', p:'стакан', k:105},
+    {id:'wine', n:'Вино', p:'бокал', k:115}
+  ]},
+  {id:'sweet', name:'🍪 Хлеб и сладкое', items:[
+    {id:'bread_w', n:'Хлеб белый', p:'кусок', k:80},
+    {id:'bread_r', n:'Хлеб чёрный', p:'кусок', k:65},
+    {id:'crisp', n:'Хлебцы', p:'2 шт', k:65},
+    {id:'cookie', n:'Печенье', p:'1 шт', k:75},
+    {id:'candy', n:'Конфета', p:'1 шт', k:75},
+    {id:'choco', n:'Шоколад', p:'¼ плитки', k:135},
+    {id:'bun', n:'Булочка', p:'1 шт', k:295},
+    {id:'cake', n:'Кусок торта', p:'120 г', k:450}
+  ]},
+  {id:'hot', name:'🍲 Супы и блюда', items:[
+    {id:'borsch', n:'Борщ или щи', p:'тарелка', k:145, m:1},
+    {id:'soup', n:'Суп куриный', p:'тарелка', k:115, m:1},
+    {id:'pelmeni', n:'Пельмени', p:'порция 200 г', k:495, m:1},
+    {id:'plov', n:'Плов', p:'порция 250 г', k:470, m:1},
+    {id:'pizza', n:'Пицца', p:'2 куска', k:485, m:1},
+    {id:'shawarma', n:'Шаурма', p:'1 шт', k:655, m:1},
+    {id:'olivie', n:'Оливье', p:'порция 150 г', k:295, m:1},
+    {id:'syrniki', n:'Сырники', p:'3 шт', k:325, m:1}
+  ]},
+  {id:'side', name:'🍚 Каши и гарниры', items:[
+    {id:'oat', n:'Овсянка на воде', p:'тарелка', k:220, m:1},
+    {id:'buck', n:'Гречка', p:'порция 150 г', k:225, m:1},
+    {id:'rice', n:'Рис', p:'порция 150 г', k:175, m:1},
+    {id:'pasta', n:'Макароны', p:'порция 150 г', k:255, m:1},
+    {id:'puree', n:'Картофельное пюре', p:'порция 150 г', k:160, m:1},
+    {id:'fries', n:'Жареная картошка', p:'порция 150 г', k:285, m:1},
+    {id:'butter', n:'Сливочное масло', p:'10 г', k:65}
+  ]},
+  {id:'protein', name:'🍳 Мясо, рыба, яйца', items:[
+    {id:'egg', n:'Яйцо', p:'1 шт', k:80, m:1},
+    {id:'omelet', n:'Яичница из 2 яиц', p:'порция', k:215, m:1},
+    {id:'cutlet', n:'Котлета', p:'1 шт', k:195, m:1},
+    {id:'chicken', n:'Курица', p:'порция 120 г', k:150, m:1},
+    {id:'fish', n:'Рыба', p:'порция 150 г', k:180, m:1},
+    {id:'tvorog', n:'Творог', p:'пачка 180 г', k:285, m:1},
+    {id:'sausage', n:'Колбаса', p:'2 кружка', k:105},
+    {id:'sosiska', n:'Сосиска', p:'1 шт', k:135},
+    {id:'cheese', n:'Сыр', p:'2 кусочка', k:105}
+  ]},
+  {id:'fruit', name:'🍎 Фрукты и перекусы', items:[
+    {id:'veg', n:'Свежие овощи', p:'порция', k:40},
+    {id:'apple', n:'Яблоко', p:'1 шт', k:80},
+    {id:'banana', n:'Банан', p:'1 шт', k:105},
+    {id:'yogurt', n:'Йогурт', p:'баночка', k:75},
+    {id:'nuts', n:'Орехи', p:'горсть', k:195},
+    {id:'bar', n:'Протеиновый батончик', p:'1 шт', k:190},
+    {id:'chips', n:'Чипсы', p:'пачка', k:370}
+  ]}
+];
+var FOOD={}; CATS.forEach(function(c){c.items.forEach(function(it){FOOD[it.id]=it;});});
+var LUNCH_KCAL = 195 + 160; // котлета с пюре
+
 function toMin(v){
   if(!v || !/^\d{1,2}:\d{2}$/.test(v)) return null;
   var p=v.split(':'); return (+p[0])*60+(+p[1]);
@@ -379,29 +519,47 @@ function fmtDur(min){
   if(h===0) return m+' мин';
   return m ? h+' ч '+m+' мин' : h+' ч';
 }
+function fmtNum(n){ return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,' '); }
 function plural(n,f){
   var a=n%10,b=n%100;
   if(a===1&&b!==11) return f[0];
   if(a>=2&&a<=4&&(b<12||b>14)) return f[1];
   return f[2];
 }
-// entries: [{t:'13:00', kind:'meal'|'snack'}], wake: 'HH:MM'
+// row: {t, items:{id:count}, manual:'meal'|'snack'|null}
+function rowKcal(row){
+  var s=0; for(var id in row.items){ if(FOOD[id]) s+=FOOD[id].k*row.items[id]; } return s;
+}
+function rowKind(row){
+  if(row.manual) return row.manual;
+  var ids=Object.keys(row.items||{});
+  if(ids.length===0) return 'meal';
+  for(var i=0;i<ids.length;i++){ if(FOOD[ids[i]] && FOOD[ids[i]].m) return 'meal'; }
+  return rowKcal(row)>=300 ? 'meal' : 'snack';
+}
 function analyzeDay(entries, wake){
   var w=toMin(wake); if(w===null) w=7*60;
-  var list=entries.map(function(e){var m=toMin(e.t); return m===null?null:{m:m,rel:(m-w+1440)%1440,kind:e.kind};})
+  var list=entries.map(function(e){var m=toMin(e.t); return m===null?null:{m:m,rel:(m-w+1440)%1440,kind:e.kind,kcal:e.kcal||0,label:e.label||''};})
                   .filter(Boolean).sort(function(a,b){return a.rel-b.rel;});
   var meals=list.filter(function(e){return e.kind==='meal';});
   if(meals.length<2) return {error: list.length<2
-    ? 'Впиши хотя бы два приёма еды'
-    : 'Отметь «Еда» минимум у двух полноценных приёмов, тогда найдётся перерыв между ними'};
+    ? 'Впиши хотя бы два раза, когда ты ела, и выбери, что было'
+    : 'Пока у тебя получился только один полноценный приём. Добавь время остальных или поменяй «перекус» на «приём пищи», если это была нормальная еда'};
   var gap=0, from=null, to=null;
   for(var i=1;i<meals.length;i++){
     var g=meals[i].rel-meals[i-1].rel;
     if(g>gap){gap=g; from=meals[i-1].m; to=meals[i].m;}
   }
   var band = gap<=240 ? 'a' : (gap<480 ? 'b' : 'c');
-  var snacks=list.length-meals.length;
-  return {gap:gap, from:from, to:to, band:band, snacks:snacks, morning:list[0].rel, list:list};
+  var mealK=0, snackK=0, snacks=0;
+  list.forEach(function(e){ if(e.kind==='meal') mealK+=e.kcal; else {snackK+=e.kcal; snacks++;} });
+  var total=mealK+snackK;
+  var score = band==='a'?0:(band==='b'?1:2);
+  if(total>0){ var share=snackK/total; if(share>=0.45) score+=2; else if(share>=0.25) score+=1; }
+  if(snacks>=3) score+=1;
+  var verdict = score===0 ? 'good' : (score<=2 ? 'mid' : 'bad');
+  return {gap:gap, from:from, to:to, band:band, snacks:snacks, morning:list[0].rel, list:list,
+          mealK:mealK, snackK:snackK, total:total, score:score, verdict:verdict};
 }
 function buildPlan(wake, n){
   var w=toMin(wake); if(w===null) w=7*60;
@@ -414,71 +572,133 @@ function buildPlan(wake, n){
 
 var BANDS={
   a:{title:'До 4 часов: ритм у тебя ровный',
-     text:'Тело не успевает провалиться в голод, и это хороший результат. Если вечером не тянет добирать, а вес стоит, копать надо в другом месте: в составе тарелки и в размере порции. Начинай с шага 3, часы можно оставить в покое'},
+     text:'Тело не успевает провалиться в голод, и это хороший результат. Если вечером не тянет добирать, а вес стоит, копать надо в другом месте: в составе тарелки и в размере порции. Это шаг 3'},
   b:{title:'Больше 4 часов: вот он, твой вечер',
      text:'Это тот самый провал, после которого вечером «не могу остановиться». Днём тело недополучило, вечером оно спокойно берёт своё. Первый шаг простой: поставь один приём внутрь этой дыры и посмотри, что станет с вечером через три дня'},
   c:{title:'8 часов и больше: тело ждёт еды весь день',
      text:'При такой дыре разговор про силу воли теряет смысл, потому что вечером с тобой разговаривает физиология. Начинай с сетки времени, она в шаге 2'}
 };
+var VERDICTS={
+  good:{face:'😍', title:'Круто, у тебя ровный день', text:'Перерывы короткие, едой на бегу день не забит. Если вес при этом стоит, смотреть надо на состав тарелки и порцию'},
+  mid:{face:'😐', title:'Ну, так себе', text:'В дне есть длинная дыра или заметная еда кусочками. Хорошая новость: это чинится расписанием, без запретов'},
+  bad:{face:'🙀', title:'Господи, как ты до вечера дожила', text:'Длинная дыра днём и много еды кусочками. Вечерний холодильник в таком дне появляется сам, характер тут ни при чём'}
+};
 var NAMES=['Первый приём','Второй приём','Третий приём','Четвёртый приём','Пятый приём'];
 
-var rows=[{t:'',kind:'meal'},{t:'',kind:'snack'},{t:'',kind:'meal'},{t:'',kind:'meal'}];
+function newRow(){ return {t:'', items:{}, manual:null, open:false, cat:'drink'}; }
+var rows=[newRow(),newRow(),newRow()];
+rows[0].open=true;
 var lastGap=null, wake2Touched=false;
 var $=function(id){return document.getElementById(id);};
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+function rowLabel(row){
+  return Object.keys(row.items).map(function(id){var c=row.items[id]; return FOOD[id].n.toLowerCase()+(c>1?' ×'+c:'');}).join(', ');
+}
 
 function renderRows(){
   $('rows').innerHTML=rows.map(function(r,i){
+    var kind=rowKind(r), k=rowKcal(r);
+    var picked=Object.keys(r.items).map(function(id){
+      var c=r.items[id];
+      return '<li>'+esc(FOOD[id].n)+(c>1?' ×'+c:'')+'<button type="button" aria-label="Убрать" data-minus="'+i+'" data-id="'+id+'">−</button></li>';
+    }).join('');
+    var picker='';
+    if(r.open){
+      var cat=CATS.filter(function(c){return c.id===r.cat;})[0]||CATS[0];
+      picker='<div class="picker">'+
+        '<div class="cats">'+CATS.map(function(c){return '<button type="button" data-cat="'+c.id+'" data-i="'+i+'" aria-pressed="'+(c.id===cat.id)+'">'+c.name+'</button>';}).join('')+'</div>'+
+        '<div class="foods">'+cat.items.map(function(it){
+          var c=r.items[it.id]||0;
+          return '<button type="button" class="food" data-plus="'+i+'" data-id="'+it.id+'"><b>'+esc(it.n)+'</b><span>'+esc(it.p)+' · '+it.k+' ккал</span>'+(c?'<em class="cnt">'+c+'</em>':'')+'</button>';
+        }).join('')+'</div>'+
+        '<button type="button" class="done" data-close="'+i+'">Готово</button>'+
+      '</div>';
+    }
     return '<li class="row">'+
-      '<input type="time" aria-label="Время, строчка '+(i+1)+'" data-i="'+i+'" value="'+r.t+'">'+
-      '<div class="seg">'+
-        '<label><input type="radio" name="k'+i+'" value="meal" data-i="'+i+'"'+(r.kind==='meal'?' checked':'')+'><span>Еда</span></label>'+
-        '<label><input type="radio" name="k'+i+'" value="snack" data-i="'+i+'"'+(r.kind==='snack'?' checked':'')+'><span>Перекус</span></label>'+
+      '<div class="row-top">'+
+        '<input type="time" aria-label="Во сколько ела, строчка '+(i+1)+'" data-i="'+i+'" value="'+r.t+'">'+
+        ((picked||r.manual)?'<button type="button" class="tag '+kind+'" data-tag="'+i+'" title="Нажми, чтобы поменять">'+(kind==='meal'?'🍽 приём пищи':'🍪 перекус')+'</button>':'<span class="tag-hint">выбери, что съела</span>')+
       '</div>'+
-      (rows.length>2?'<button class="del" type="button" aria-label="Удалить строчку" data-del="'+i+'">×</button>':'')+
+      (picked?'<ul class="picked">'+picked+'</ul>':'')+
+      '<div class="row-actions">'+
+        (r.open?'<span></span>':'<button type="button" class="add" data-open="'+i+'">+ '+(picked?'Добавить ещё':'Что съела')+'</button>')+
+        '<span class="row-right">'+(k?'<span class="row-kcal">'+fmtNum(k)+' ккал</span>':'')+
+        (rows.length>2?'<button class="del" type="button" data-del="'+i+'">Удалить</button>':'')+'</span>'+
+      '</div>'+
+      picker+
     '</li>';
   }).join('');
 }
 $('rows').addEventListener('input',function(e){
-  var i=e.target.getAttribute('data-i'); if(i===null) return;
-  if(e.target.type==='time') rows[i].t=e.target.value;
-  if(e.target.type==='radio') rows[i].kind=e.target.value;
-});
-$('rows').addEventListener('change',function(e){
-  var i=e.target.getAttribute('data-i'); if(i!==null && e.target.type==='radio') rows[i].kind=e.target.value;
+  var i=e.target.getAttribute('data-i'); if(i!==null && e.target.type==='time') rows[i].t=e.target.value;
 });
 $('rows').addEventListener('click',function(e){
-  var d=e.target.getAttribute('data-del'); if(d===null) return;
-  rows.splice(+d,1); renderRows();
+  var b=e.target.closest('button'); if(!b) return;
+  var d=b.dataset;
+  if(d.plus!==undefined){ var r=rows[d.plus]; r.items[d.id]=(r.items[d.id]||0)+1; }
+  else if(d.minus!==undefined){ var r2=rows[d.minus]; r2.items[d.id]--; if(r2.items[d.id]<=0) delete r2.items[d.id]; }
+  else if(d.cat!==undefined){ rows[d.i].cat=d.cat; }
+  else if(d.open!==undefined){ rows.forEach(function(x){x.open=false;}); rows[d.open].open=true; }
+  else if(d.close!==undefined){ rows[d.close].open=false; }
+  else if(d.tag!==undefined){ var r3=rows[d.tag]; r3.manual = rowKind(r3)==='meal' ? 'snack' : 'meal'; }
+  else if(d.del!==undefined){ rows.splice(+d.del,1); }
+  else return;
+  renderRows();
 });
-$('addRow').addEventListener('click',function(){rows.push({t:'',kind:'meal'}); renderRows();});
+$('addRow').addEventListener('click',function(){
+  rows.forEach(function(x){x.open=false;});
+  var r=newRow(); r.open=true; rows.push(r); renderRows();
+});
 
 $('wake1').addEventListener('input',function(){ if(!wake2Touched){ $('wake2').value=this.value; renderPlan(); } });
 $('wake2').addEventListener('input',function(){ wake2Touched=true; renderPlan(); });
 
+function countUp(el, to){
+  var start=null, dur=900;
+  function step(ts){ if(!start) start=ts; var p=Math.min(1,(ts-start)/dur); el.textContent=fmtNum(to*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(step); }
+  requestAnimationFrame(step);
+}
+
 $('calc').addEventListener('click',function(){
-  var r=analyzeDay(rows, $('wake1').value);
+  var entries=rows.map(function(r){return {t:r.t, kind:rowKind(r), kcal:rowKcal(r), label:rowLabel(r)};});
+  var r=analyzeDay(entries, $('wake1').value);
   if(r.error){ $('err1').textContent=r.error; $('err1').hidden=false; $('res1').hidden=true; return; }
   $('err1').hidden=true;
+  rows.forEach(function(x){x.open=false;}); renderRows();
   lastGap=r.gap;
+
+  var v=VERDICTS[r.verdict];
+  $('vFace').textContent=v.face; $('vFace').style.animation='none'; void $('vFace').offsetWidth; $('vFace').style.animation='';
+  $('vTitle').textContent=v.title; $('vText').textContent=v.text;
+
+  if(r.total>0){
+    $('kcalBlock').hidden=false;
+    countUp($('kcalNum'), r.total);
+    $('kMeal').textContent=fmtNum(r.mealK)+' ккал'; $('kSnack').textContent=fmtNum(r.snackK)+' ккал';
+    $('barMeal').style.width='0'; $('barSnack').style.width='0';
+    setTimeout(function(){ $('barMeal').style.width=(r.mealK/r.total*100)+'%'; $('barSnack').style.width=(r.snackK/r.total*100)+'%'; },50);
+    if(r.snackK>=LUNCH_KCAL*0.5){
+      var x=(r.snackK/LUNCH_KCAL).toFixed(1).replace('.',',').replace(',0','');
+      $('kEquiv').textContent='Только в перекусах, которые обычно не считают едой, '+fmtNum(r.snackK)+' ккал. Это как котлета с пюре ×'+x;
+      $('kEquiv').hidden=false;
+    } else $('kEquiv').hidden=true;
+    $('eaten').innerHTML=r.list.map(function(e){
+      return '<li class="'+e.kind+'"><time>'+fmtTime(e.m)+'</time><span class="what">'+esc(e.label||'продукты не выбраны')+'</span><span class="k">'+(e.kcal?fmtNum(e.kcal):'?')+'</span></li>';
+    }).join('');
+  } else $('kcalBlock').hidden=true;
+
   $('gapBig').textContent=fmtDur(r.gap);
   $('gapWhen').textContent='с '+fmtTime(r.from)+' до '+fmtTime(r.to);
-  var html='', meals=r.list;
-  for(var i=0;i<meals.length;i++){
-    var e=meals[i];
+  var html='';
+  r.list.forEach(function(e){
     html+='<li class="'+(e.kind==='meal'?'meal':'')+'">'+fmtTime(e.m)+'</li>';
-    if(e.kind==='meal' && e.m===r.from){
-      html+='<li class="gap">'+fmtDur(r.gap)+'</li>';
-    }
-  }
+    if(e.kind==='meal' && e.m===r.from) html+='<li class="gap">'+fmtDur(r.gap)+'</li>';
+  });
   $('dayLine').innerHTML=html;
   var b=BANDS[r.band];
   $('band').className='band '+r.band;
-  $('bandTitle').textContent=b.title;
-  $('bandText').textContent=b.text;
-  if(r.snacks>0){
-    $('snackNote').textContent='Кроме полноценных приёмов у тебя за день '+r.snacks+' '+plural(r.snacks,['перекус','перекуса','перекусов'])+'. Один кусочек ничего не ломает, но когда день собран из кусочков, собственный голод понять сложнее';
-    $('snackNote').hidden=false;
-  } else $('snackNote').hidden=true;
+  $('bandTitle').textContent=b.title; $('bandText').textContent=b.text;
   if(r.morning>180){
     $('morningNote').textContent='И про утро: от подъёма до первой еды прошло '+fmtDur(r.morning)+'. Когда утро без еды длиннее трёх часов, к вечеру обычно набегает уже два провала вместо одного';
     $('morningNote').hidden=false;
